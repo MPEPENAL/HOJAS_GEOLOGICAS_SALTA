@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title>HOJAS GEOLOGCAS SALTA</title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/Unidades_Geologicas_salta_25M_1.js"></script>
+        <script src="data/HOJAS_GEOLOGICAS_SALTA_2.js"></script>
+        <script src="data/deptos_salta_3.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-26.19379340702648,-68.2527959986164],[-21.98460520778863,-60.91038795372911]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://www.facebook.com/Gismaps.Pepenal" target="_blank">Ing en Rec Nat y Medio Amb </a> &middot; <a href="" title="ANALISTA SIG-DESARROLLADOR WEBMAPPING">MARCELO PEPENAL</a> &middot; <a href="https://www.facebook.com/Gismaps.Pepenal">Gismaps</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            map.setMaxBounds(map.getBounds());
+        }
+        map.createPane('pane_EsriSatellite_0');
+        map.getPane('pane_EsriSatellite_0').style.zIndex = 400;
+        var layer_EsriSatellite_0 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_EsriSatellite_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 17
+        });
+        layer_EsriSatellite_0;
+        map.addLayer(layer_EsriSatellite_0);
+        function pop_Unidades_Geologicas_salta_25M_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>sigla</strong><br />' + (feature.properties['sigla'] !== null ? autolinker.link(feature.properties['sigla'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>nombre</strong><br />' + (feature.properties['nombre'] !== null ? autolinker.link(feature.properties['nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>ambiente</strong><br />' + (feature.properties['ambiente'] !== null ? autolinker.link(feature.properties['ambiente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>edad_inf</strong><br />' + (feature.properties['edad_inf'] !== null ? autolinker.link(feature.properties['edad_inf'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>edad_sup</strong><br />' + (feature.properties['edad_sup'] !== null ? autolinker.link(feature.properties['edad_sup'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>litologia</strong><br />' + (feature.properties['litologia'] !== null ? autolinker.link(feature.properties['litologia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>region</strong><br />' + (feature.properties['region'] !== null ? autolinker.link(feature.properties['region'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>unidades</strong><br />' + (feature.properties['unidades'] !== null ? autolinker.link(feature.properties['unidades'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Unidades_Geologicas_salta_25M_1_0(feature) {
+            switch(String(feature.properties['unidades'])) {
+                case 'Complejo básico Ojo de Colorados y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,124,111,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Complejo metamórfico Fiambalá, Sa. de Quilmes, La Puntilla, Fm. La Pava y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(162,95,238,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Complejo Salar Centenario, Fm. Pachamama y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(120,198,217,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Complejo Tuzgle, volcanes monogénicos':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(156,231,98,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Complejo volcánico Quebrada del Agua y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(60,125,204,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Complejos volcánicos Abra Grande, Pairique Torona,Coranzuli, Panizo y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,224,74,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Faja eruptiva de la Puna Oriental, Complejo eruptivo Oire':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,158,31,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formación Baritú, Mendieta y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,80,144,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formación Ituzaingó y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(210,93,206,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formación Luján, Platense y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(239,124,216,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formación Tacurú y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,198,124,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formación Valle Ancho, Complejo Volcánico Portoman y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,106,212,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones  Arizaro y Cauchari, Grupo Paganzo':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(223,135,239,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Abra de Gallo, Jama, Pululus y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,136,158,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Cerro Oscuro y Agua Colorada':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,221,130,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Coquena, Cortaderas y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(121,212,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Laguna de Aracar, Pantanoso, La Cuesta y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(67,166,227,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Mecoyita, Zapla, Lipeón y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(107,141,234,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Pozuelos, Vizcachera y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(108,202,134,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Tafna, Uquía, Jujuy, Maimará y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,81,91,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Formaciones Tsijes, Pastos Chicos, Singuel, Loma Blanca y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(120,212,163,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Grupo Mandiyutí y Machareti':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(20,223,40,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Grupo Mesón':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(116,104,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Grupo Salta':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(78,89,212,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Grupo Santa Victoria y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(228,133,45,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Ignimbrita Tuzgle, Complejo Piroclástico Cerro Blanco y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,99,200,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plutones Chuculaqui, Llullaillaco y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(137,225,210,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plutones Macón, Chanchas, Navarro, Taca Taca  y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(172,233,73,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plutones Tastíl, Cañaní y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,232,90,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Plutones Tusaquillas, Abra Laite, Aguilar, Rangel, Fundición y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(52,220,223,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'S/Info':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,96,180,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Volcanes Cerro Tinte, Granada, Zapaleri,  Campanario, Poquis, Llullaillaco, Ojos del Salado y equivalentes':
+                    return {
+                pane: 'pane_Unidades_Geologicas_salta_25M_1',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,156,126,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_Unidades_Geologicas_salta_25M_1');
+        map.getPane('pane_Unidades_Geologicas_salta_25M_1').style.zIndex = 401;
+        map.getPane('pane_Unidades_Geologicas_salta_25M_1').style['mix-blend-mode'] = 'normal';
+        var layer_Unidades_Geologicas_salta_25M_1 = new L.geoJson(json_Unidades_Geologicas_salta_25M_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Unidades_Geologicas_salta_25M_1',
+            layerName: 'layer_Unidades_Geologicas_salta_25M_1',
+            pane: 'pane_Unidades_Geologicas_salta_25M_1',
+            onEachFeature: pop_Unidades_Geologicas_salta_25M_1,
+            style: style_Unidades_Geologicas_salta_25M_1_0,
+        });
+        bounds_group.addLayer(layer_Unidades_Geologicas_salta_25M_1);
+        function pop_HOJAS_GEOLOGICAS_SALTA_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Nombre</strong><br />' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Numero_hoj</strong><br />' + (feature.properties['Numero_hoj'] !== null ? autolinker.link(feature.properties['Numero_hoj'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Escala</strong><br />' + (feature.properties['Escala'] !== null ? autolinker.link(feature.properties['Escala'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>Observaciones</strong><br />' + (feature.properties['Observaciones'] !== null ? autolinker.link(feature.properties['Observaciones'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>link_HG</strong><br />' + (feature.properties['link_HG'] !== null ? autolinker.link(feature.properties['link_HG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_HOJAS_GEOLOGICAS_SALTA_2_0() {
+            return {
+                pane: 'pane_HOJAS_GEOLOGICAS_SALTA_2',
+                opacity: 1,
+                color: 'rgba(255,1,5,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 4.0, 
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_HOJAS_GEOLOGICAS_SALTA_2');
+        map.getPane('pane_HOJAS_GEOLOGICAS_SALTA_2').style.zIndex = 402;
+        map.getPane('pane_HOJAS_GEOLOGICAS_SALTA_2').style['mix-blend-mode'] = 'normal';
+        var layer_HOJAS_GEOLOGICAS_SALTA_2 = new L.geoJson(json_HOJAS_GEOLOGICAS_SALTA_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_HOJAS_GEOLOGICAS_SALTA_2',
+            layerName: 'layer_HOJAS_GEOLOGICAS_SALTA_2',
+            pane: 'pane_HOJAS_GEOLOGICAS_SALTA_2',
+            onEachFeature: pop_HOJAS_GEOLOGICAS_SALTA_2,
+            style: style_HOJAS_GEOLOGICAS_SALTA_2_0,
+        });
+        bounds_group.addLayer(layer_HOJAS_GEOLOGICAS_SALTA_2);
+        map.addLayer(layer_HOJAS_GEOLOGICAS_SALTA_2);
+        function pop_deptos_salta_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['objectid'] !== null ? autolinker.link(feature.properties['objectid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>departa</strong><br />' + (feature.properties['departa'] !== null ? autolinker.link(feature.properties['departa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cabecer'] !== null ? autolinker.link(feature.properties['cabecer'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['provincia'] !== null ? autolinker.link(feature.properties['provincia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fuente'] !== null ? autolinker.link(feature.properties['fuente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fec_actual'] !== null ? autolinker.link(feature.properties['fec_actual'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fuente1'] !== null ? autolinker.link(feature.properties['fuente1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['cod_depto'] !== null ? autolinker.link(feature.properties['cod_depto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['created_us'] !== null ? autolinker.link(feature.properties['created_us'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['created_da'] !== null ? autolinker.link(feature.properties['created_da'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['last_edite'] !== null ? autolinker.link(feature.properties['last_edite'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['last_edi_1'] !== null ? autolinker.link(feature.properties['last_edi_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['st_area_sh'] !== null ? autolinker.link(feature.properties['st_area_sh'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['st_length_'] !== null ? autolinker.link(feature.properties['st_length_'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_deptos_salta_3_0() {
+            return {
+                pane: 'pane_deptos_salta_3',
+                opacity: 1,
+                color: 'rgba(39,252,36,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,182,111,0.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_deptos_salta_3');
+        map.getPane('pane_deptos_salta_3').style.zIndex = 403;
+        map.getPane('pane_deptos_salta_3').style['mix-blend-mode'] = 'normal';
+        var layer_deptos_salta_3 = new L.geoJson(json_deptos_salta_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_deptos_salta_3',
+            layerName: 'layer_deptos_salta_3',
+            pane: 'pane_deptos_salta_3',
+            onEachFeature: pop_deptos_salta_3,
+            style: style_deptos_salta_3_0,
+        });
+        bounds_group.addLayer(layer_deptos_salta_3);
+        map.addLayer(layer_deptos_salta_3);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/deptos_salta_3.png" /> deptos_salta': layer_deptos_salta_3,'<img src="legend/HOJAS_GEOLOGICAS_SALTA_2.png" /> HOJAS_GEOLOGICAS_SALTA': layer_HOJAS_GEOLOGICAS_SALTA_2,'Unidades_Geologicas_salta_2.5M<br /><table><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_ComplejobásicoOjodeColoradosyequivalentes0.png" /></td><td>Complejo básico Ojo de Colorados y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_ComplejometamórficoFiambaláSadeQuilmesLaPuntillaFmLaPavayequivalentes1.png" /></td><td>Complejo metamórfico Fiambalá, Sa. de Quilmes, La Puntilla, Fm. La Pava y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_ComplejoSalarCentenarioFmPachamamayequivalentes2.png" /></td><td>Complejo Salar Centenario, Fm. Pachamama y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_ComplejoTuzglevolcanesmonogénicos3.png" /></td><td>Complejo Tuzgle, volcanes monogénicos</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_ComplejovolcánicoQuebradadelAguayequivalentes4.png" /></td><td>Complejo volcánico Quebrada del Agua y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_ComplejosvolcánicosAbraGrandePairiqueToronaCoranzuliPanizoyequivalentes5.png" /></td><td>Complejos volcánicos Abra Grande, Pairique Torona,Coranzuli, Panizo y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FajaeruptivadelaPunaOrientalComplejoeruptivoOire6.png" /></td><td>Faja eruptiva de la Puna Oriental, Complejo eruptivo Oire</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormaciónBaritúMendietayequivalentes7.png" /></td><td>Formación Baritú, Mendieta y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormaciónItuzaingóyequivalentes8.png" /></td><td>Formación Ituzaingó y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormaciónLujánPlatenseyequivalentes9.png" /></td><td>Formación Luján, Platense y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormaciónTacurúyequivalentes10.png" /></td><td>Formación Tacurú y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormaciónValleAnchoComplejoVolcánicoPortomanyequivalentes11.png" /></td><td>Formación Valle Ancho, Complejo Volcánico Portoman y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesArizaroyCauchariGrupoPaganzo12.png" /></td><td>Formaciones  Arizaro y Cauchari, Grupo Paganzo</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesAbradeGalloJamaPululusyequivalentes13.png" /></td><td>Formaciones Abra de Gallo, Jama, Pululus y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesCerroOscuroyAguaColorada14.png" /></td><td>Formaciones Cerro Oscuro y Agua Colorada</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesCoquenaCortaderasyequivalentes15.png" /></td><td>Formaciones Coquena, Cortaderas y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesLagunadeAracarPantanosoLaCuestayequivalentes16.png" /></td><td>Formaciones Laguna de Aracar, Pantanoso, La Cuesta y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesMecoyitaZaplaLipeónyequivalentes17.png" /></td><td>Formaciones Mecoyita, Zapla, Lipeón y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesPozuelosVizcacherayequivalentes18.png" /></td><td>Formaciones Pozuelos, Vizcachera y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesTafnaUquíaJujuyMaimaráyequivalentes19.png" /></td><td>Formaciones Tafna, Uquía, Jujuy, Maimará y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_FormacionesTsijesPastosChicosSinguelLomaBlancayequivalentes20.png" /></td><td>Formaciones Tsijes, Pastos Chicos, Singuel, Loma Blanca y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_GrupoMandiyutíyMachareti21.png" /></td><td>Grupo Mandiyutí y Machareti</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_GrupoMesón22.png" /></td><td>Grupo Mesón</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_GrupoSalta23.png" /></td><td>Grupo Salta</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_GrupoSantaVictoriayequivalentes24.png" /></td><td>Grupo Santa Victoria y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_IgnimbritaTuzgleComplejoPiroclásticoCerroBlancoyequivalentes25.png" /></td><td>Ignimbrita Tuzgle, Complejo Piroclástico Cerro Blanco y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_PlutonesChuculaquiLlullaillacoyequivalentes26.png" /></td><td>Plutones Chuculaqui, Llullaillaco y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_PlutonesMacónChanchasNavarroTacaTacayequivalentes27.png" /></td><td>Plutones Macón, Chanchas, Navarro, Taca Taca  y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_PlutonesTastílCañaníyequivalentes28.png" /></td><td>Plutones Tastíl, Cañaní y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_PlutonesTusaquillasAbraLaiteAguilarRangelFundiciónyequivalentes29.png" /></td><td>Plutones Tusaquillas, Abra Laite, Aguilar, Rangel, Fundición y equivalentes</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_SInfo30.png" /></td><td>S/Info</td></tr><tr><td style="text-align: center;"><img src="legend/Unidades_Geologicas_salta_25M_1_VolcanesCerroTinteGranadaZapaleriCampanarioPoquisLlullaillacoOjosdelSaladoyequivalentes31.png" /></td><td>Volcanes Cerro Tinte, Granada, Zapaleri,  Campanario, Poquis, Llullaillaco, Ojos del Salado y equivalentes</td></tr></table>': layer_Unidades_Geologicas_salta_25M_1,"Esri Satellite": layer_EsriSatellite_0,}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_HOJAS_GEOLOGICAS_SALTA_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Numero_hoj'] !== null?String('<div style="color: #ffffff; font-size: 11pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['Numero_hoj']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_HOJAS_GEOLOGICAS_SALTA_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_deptos_salta_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['departa'] !== null?String('<div style="color: #ffffff; font-size: 7pt; font-family: \'Arial Black\', sans-serif;">' + layer.feature.properties['departa']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_deptos_salta_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_HOJAS_GEOLOGICAS_SALTA_2,layer_deptos_salta_3]);
+        map.on("zoomend", function(){
+            resetLabels([layer_HOJAS_GEOLOGICAS_SALTA_2,layer_deptos_salta_3]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_HOJAS_GEOLOGICAS_SALTA_2,layer_deptos_salta_3]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_HOJAS_GEOLOGICAS_SALTA_2,layer_deptos_salta_3]);
+        });
+        </script>
+    </body>
+</html>
